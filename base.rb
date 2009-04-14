@@ -1,18 +1,11 @@
-git :init
-
-generate :rspec
-
 run "echo TODO > README"
 
-# plugin 'make_resourceful', :git => 'git://github.com/hcatlin/make_resourceful.git'
-# plugin 'machinist', :git => 'git://github.com/notahat/machinist.git'
-# plugin 'dbc', :git => 'git://github.com/matholroyd/dbc.git'
-# plugin 'rails-standard-extensions', :git => 'git://github.com/matholroyd/rails-standard-extensions.git'
+plugin 'rails-standard-extensions', :git => 'git://github.com/matholroyd/rails-standard-extensions.git'
+plugin 'make_resourceful', :git => 'git://github.com/hcatlin/make_resourceful.git'
 
 gem 'haml'
 gem 'mbleigh-acts-as-taggable-on', :lib => 'acts-as-taggable-on', :source => 'http://gems.github.com'
-
-rake 'gems:install'
+gem 'matholroyd-dbc', :lib => 'dbc', :source => 'http://gems.github.com'
 
 run 'haml --rails .'
 run 'rm public/index.html'
@@ -25,6 +18,7 @@ tmp/**/*
 db/*.sqlite3
 END
 
+git :init
 git :add => ".", :commit => "-m 'initial commit'"
 
 if yes?("Run migrations?")
