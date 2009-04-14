@@ -31,7 +31,6 @@ Spec::Runner.configure do |config|
 end
 
 def content_for(name)
-  response.template.instance_variable_get("@content_for_#{name}")
+  response.template.instance_variable_get("@content_for_\#{name}")
 end
-
 END

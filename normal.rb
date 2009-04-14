@@ -1,2 +1,3 @@
-load_template '/Users/matholroyd/projects/rails-templates/authentication.rb'
-load_template '/Users/matholroyd/projects/rails-templates/base.rb'
+load_template 'http://github.com/matholroyd/rails-templates/raw/master/authentication.rb'
+load_template 'http://github.com/matholroyd/rails-templates/raw/master/testing.rb'
+load_template 'http://github.com/matholroyd/rails-templates/raw/master/base.rb'
