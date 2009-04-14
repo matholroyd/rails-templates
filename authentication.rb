@@ -1,5 +1,11 @@
 gem 'authlogic'
 
+file 'app/models/user.rb', <<-END
+class User < ActiveRecord::Base
+  acts_as_authentic
+end
+END
+
 file 'app/models/user_session.rb', <<-END
 class UserSession < Authlogic::Session::Base
 end  
