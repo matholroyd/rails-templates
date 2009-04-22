@@ -11,6 +11,16 @@ class UserSession < Authlogic::Session::Base
 end  
 END
 
+file 'config/routes.rb', <<-END
+ActionController::Routing::Routes.draw do |map|
+  map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
+  map.login '/login', :controller => 'user_sessions', :action => 'new'
+
+  map.resources :users
+  map.resource :user_session, :except => [:edit, :show, :update]
+end
+END
+
 file 'app/controllers/user_sessions_controller.rb', <<-END
 class UserSessionsController < ApplicationController
   skip_before_filter :require_user, :except => :destroy
@@ -76,6 +86,27 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.request_uri
   end
 end
+END
+
+file 'app/views/shared/_user_bar.html.haml', <<-END
+#user_bar.site
+  - if current_user
+    = link_to 'log out', logout_path
+  - else
+    = link_to 'log in', login_path
+END
+
+file 'app/views/user_sessions/new.html.haml', <<-END
+- content_for(:heading, "Log in")
+
+= error_messages_for(:user_session)
+
+- airbudd_form_for @user_session, :url => user_session_path do |f|
+  = f.text_field :login
+  = f.password_field :password
+  - f.buttons do |b|
+    = f.save :label => 'Log in'
+
 END
 
 file 'db/migrate/001_create_users.rb', <<-END
