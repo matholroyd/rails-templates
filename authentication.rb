@@ -13,9 +13,6 @@ END
 
 file 'config/routes.rb', <<-END
 ActionController::Routing::Routes.draw do |map|
-  map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
-  map.login '/login', :controller => 'user_sessions', :action => 'new'
-
   map.resources :users
   map.resource :user_session, :except => [:edit, :show, :update]
 end
@@ -33,7 +30,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Login successful!"
-      redirect_back_or_default documents_url
+      redirect_back_or_default user_path(current_user)
     else
       flash[:error] = "Login unsuccessful"
       render :action => :new
@@ -102,7 +99,7 @@ file 'app/views/user_sessions/new.html.haml', <<-END
 = error_messages_for(:user_session)
 
 - airbudd_form_for @user_session, :url => user_session_path do |f|
-  = f.text_field :login
+  = f.text_field :email
   = f.password_field :password
   - f.buttons do |b|
     = f.save :label => 'Log in'
@@ -113,7 +110,6 @@ file 'db/migrate/001_create_users.rb', <<-END
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string :first_name, :last_name
       t.string :email, :null => false
       t.string :crypted_password, :null => false
       t.string :password_salt, :null => false
