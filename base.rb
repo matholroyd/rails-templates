@@ -1,6 +1,5 @@
 run "echo TODO > README"
 
-plugin 'rails-standard-extensions', :git => 'git://github.com/matholroyd/rails-standard-extensions.git'
 plugin 'make_resourceful', :git => 'git://github.com/hcatlin/make_resourceful.git'
 
 gem 'haml'
@@ -8,6 +7,7 @@ gem 'justinfrench-formtastic', :lib => 'formtastic', :source => 'http://gems.git
 gem 'mbleigh-acts-as-taggable-on', :lib => 'acts-as-taggable-on', :source => 'http://gems.github.com'
 gem 'tworgy-ruby'
 gem 'tworgy-rails'
+gem 'machinist'
 
 run 'haml --rails .'
 run 'rm public/index.html'
